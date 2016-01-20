@@ -19,6 +19,7 @@
     "chai": "^3.4.1",
     "chai-as-promised": "^5.2.0",
     "gulp": "^3.9.0",
+    "gulp-jshint": "^2.0.0",
     "gulp-jslint": "^0.2.2",
     "gulp-mocha": "^2.2.0",
     "gulp-nodemon": "^2.0.6",
