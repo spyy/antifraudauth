@@ -201,26 +201,26 @@ definitions:
   V1CreateAccountData:
     required:
       - user
-      - domain
-      - pass
+      - server
+      - password
     properties:
       user: 
         type: string
         description: User ID.
-      domain:
+      server:
         type: string
         description: XMPP domain name.
-      pass:
+      password:
         type: string
         description: User password.
   V1DeleteAccountData:
     required:
       - user
-      - domain
+      - server
     properties:
       user: 
         type: string
         description: User ID.
-      domain:
+      server:
         type: string
         description: XMPP domain name.
