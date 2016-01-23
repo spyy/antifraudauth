@@ -4,7 +4,7 @@ var util = require('util');
 var randomstring = require('randomstring');
 var redisreader = require('../helpers/redisreader');
 var rediswriter = require('../helpers/rediswriter');
-const https = require('https');
+var https = require('https');
 
 
 function post3(req, res) {
@@ -39,17 +39,27 @@ function post3(req, res) {
   //res.json(JSON.stringify(response));
 }
 
-function post2(req, res) {
+
+
+
+
+function post(req, res) {
   
-  console.log(req.headers);
+  var userDetails = req.swagger.params.V1UserDetails.value;
   
-  //console.log(req);
+  
+  console.log(userDetails);
   
   res.json({'user': 'USER', 'server': 'DOMAIN', 'password': 'PASS'});
 }
 
 
-function post(req, res) {
+
+
+
+
+
+function post2(req, res) {
   var postData = JSON.stringify({
     'user': 'user1', 
     'server': 'eesee.io', 
