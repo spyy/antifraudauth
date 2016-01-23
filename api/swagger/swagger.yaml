@@ -28,7 +28,7 @@ paths:
     x-swagger-router-controller: v1_create_account
     post:
       parameters:
-        - name: user
+        - name: V1UserDetails
           in: body
           description: The user details must be passed in JSON format in the body.
           required: true
@@ -47,7 +47,7 @@ paths:
     x-swagger-router-controller: v1_delete_account
     post:
       parameters:
-        - name: user
+        - name: V1UserDetails
           in: body
           description: The user details must be passed in JSON format in the body.
           required: true
