@@ -15,6 +15,7 @@ SwaggerExpress.create(config, function(err, swaggerExpress) {
   swaggerExpress.register(app);
 
   var port = process.env.PORT;
-  app.listen(port);
+  var hostname = 'ec2-52-48-82-134.eu-west-1.compute.amazonaws.com';
+  app.listen(hostname, port);
 
 });
