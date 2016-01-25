@@ -226,7 +226,7 @@ definitions:
       - res
     properties:
       res: 
-        type: string
+        type: integer
         description: Unknown.
   V1DeleteAccountRequestData:
     required:
@@ -244,5 +244,5 @@ definitions:
       - res
     properties:
       res: 
-        type: string
+        type: integer
         description: Unknown.
