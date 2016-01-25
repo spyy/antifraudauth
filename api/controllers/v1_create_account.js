@@ -65,7 +65,7 @@ function post(request, response) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Content-Length': postData.length
+      'Content-Length': postData.value.length
     }
   };  
 
@@ -91,7 +91,7 @@ function post(request, response) {
     
   });
   
-  saasRequest.write(postData);
+  saasRequest.write(postData.value);
   saasRequest.end();
   
   saasRequest.on('error', function(e) {
