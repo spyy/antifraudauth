@@ -1,0 +1,197 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "0.0.1",
+        "title": "User account",
+        "description": "User account management",
+        "termsOfService": "http://io.io/terms/",
+        "contact": {
+            "name": "Sales & support",
+            "url": "http://io.io/contact/",
+            "email": "contact@io.io"
+        }
+    },
+    "host": "localhost:10010",
+    "basePath": "/",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v1/user/create_account_echo": {
+            "x-swagger-router-controller": "v1_create_account_echo",
+            "post": {
+                "parameters": [
+                    {
+                        "name": "V1UserDetails",
+                        "in": "body",
+                        "description": "The user details must be passed in JSON format in the body.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/V1CreateAccountRequestData"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Request echoed.",
+                        "schema": {
+                            "$ref": "#/definitions/V1CreateAccountEchoResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/user/create_account": {
+            "x-swagger-router-controller": "v1_create_account",
+            "post": {
+                "parameters": [
+                    {
+                        "name": "V1UserDetails",
+                        "in": "body",
+                        "description": "The user details must be passed in JSON format in the body.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/V1CreateAccountRequestData"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User is registered.",
+                        "schema": {
+                            "$ref": "#/definitions/V1CreateAccountResponseData"
+                        }
+                    },
+                    "500": {
+                        "description": "Operation failed.",
+                        "schema": {
+                            "$ref": "#/definitions/V1CreateAccountResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/user/delete_account": {
+            "x-swagger-router-controller": "v1_delete_account",
+            "post": {
+                "parameters": [
+                    {
+                        "name": "V1UserDetails",
+                        "in": "body",
+                        "description": "The user details must be passed in JSON format in the body.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/V1DeleteAccountRequestData"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User is unregistered.",
+                        "schema": {
+                            "$ref": "#/definitions/V1DeleteAccountResponseData"
+                        }
+                    },
+                    "500": {
+                        "description": "Operation failed.",
+                        "schema": {
+                            "$ref": "#/definitions/V1DeleteAccountResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/swagger": {
+            "x-swagger-pipe": "swagger_raw"
+        }
+    },
+    "definitions": {
+        "V1CreateAccountEchoResponseData": {
+            "required": [
+                "user",
+                "server",
+                "password"
+            ],
+            "properties": {
+                "user": {
+                    "type": "string",
+                    "description": "User ID."
+                },
+                "server": {
+                    "type": "string",
+                    "description": "XMPP domain name."
+                },
+                "password": {
+                    "type": "string",
+                    "description": "User password."
+                }
+            }
+        },
+        "V1CreateAccountRequestData": {
+            "required": [
+                "user",
+                "server",
+                "password"
+            ],
+            "properties": {
+                "user": {
+                    "type": "string",
+                    "description": "User ID."
+                },
+                "server": {
+                    "type": "string",
+                    "description": "XMPP domain name."
+                },
+                "password": {
+                    "type": "string",
+                    "description": "User password."
+                }
+            }
+        },
+        "V1CreateAccountResponseData": {
+            "required": [
+                "res"
+            ],
+            "properties": {
+                "res": {
+                    "type": "integer",
+                    "description": "0 if success."
+                }
+            }
+        },
+        "V1DeleteAccountRequestData": {
+            "required": [
+                "user",
+                "server"
+            ],
+            "properties": {
+                "user": {
+                    "type": "string",
+                    "description": "User ID."
+                },
+                "server": {
+                    "type": "string",
+                    "description": "XMPP domain name."
+                }
+            }
+        },
+        "V1DeleteAccountResponseData": {
+            "required": [
+                "res"
+            ],
+            "properties": {
+                "res": {
+                    "type": "integer",
+                    "description": "0 if success."
+                }
+            }
+        }
+    }
+}
