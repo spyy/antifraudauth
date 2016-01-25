@@ -24,6 +24,21 @@ consumes:
 produces:
   - application/json
 paths:
+  /v1/user/create_account_echo:
+    x-swagger-router-controller: v1_create_account_echo
+    post:
+      parameters:
+        - name: V1UserDetails
+          in: body
+          description: The user details must be passed in JSON format in the body.
+          required: true
+          schema:
+            $ref: "#/definitions/V1CreateAccountRequestData"
+      responses:
+        "200":
+          description: Response echoed.
+          schema:
+            $ref: "#/definitions/V1CreateAccountEchoResponseData"
   /v1/user/create_account:
     x-swagger-router-controller: v1_create_account
     post:
@@ -206,6 +221,21 @@ definitions:
     properties:
       domain:
         type: string
+  V1CreateAccountEchoResponseData:
+    required:
+      - user
+      - server
+      - password
+    properties:
+      user: 
+        type: string
+        description: User ID.
+      server:
+        type: string
+        description: XMPP domain name.
+      password:
+        type: string
+        description: User password.
   V1CreateAccountRequestData:
     required:
       - user
