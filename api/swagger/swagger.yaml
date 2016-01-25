@@ -33,16 +33,16 @@ paths:
           description: The user details must be passed in JSON format in the body.
           required: true
           schema:
-            $ref: "#/definitions/V1CreateAccountData"
+            $ref: "#/definitions/V1CreateAccountRequestData"
       responses:
         "200":
           description: User is registered.
           schema:
-            $ref: "#/definitions/V1CreateAccountData"
+            $ref: "#/definitions/V1CreateAccountResponseData"
         "500":
           description: Operation failed.
           schema:
-            $ref: "#/definitions/V1CreateAccountData"
+            $ref: "#/definitions/V1CreateAccountResponseData"
   /v1/user/delete_account:
     x-swagger-router-controller: v1_delete_account
     post:
@@ -52,12 +52,16 @@ paths:
           description: The user details must be passed in JSON format in the body.
           required: true
           schema:
-            $ref: "#/definitions/V1DeleteAccountData"
+            $ref: "#/definitions/V1DeleteAccountRequestData"
       responses:
         "200":
           description: User is unregistered.
+          schema:
+            $ref: "#/definitions/V1DeleteAccountResponseData"
         "500":
-          description: Operation failed.     
+          description: Operation failed.
+          schema:
+            $ref: "#/definitions/V1DeleteAccountResponseData"
   /v1/authenticate:
     # binds a127 app logic to a route
     x-swagger-router-controller: v1_authenticate
@@ -202,7 +206,7 @@ definitions:
     properties:
       domain:
         type: string
-  V1CreateAccountData:
+  V1CreateAccountRequestData:
     required:
       - user
       - server
@@ -217,7 +221,14 @@ definitions:
       password:
         type: string
         description: User password.
-  V1DeleteAccountData:
+  V1CreateAccountResponseData:
+    required:
+      - res
+    properties:
+      res: 
+        type: string
+        description: Unknown.
+  V1DeleteAccountRequestData:
     required:
       - user
       - server
@@ -228,3 +239,10 @@ definitions:
       server:
         type: string
         description: XMPP domain name.
+  V1DeleteAccountResponseData:
+    required:
+      - res
+    properties:
+      res: 
+        type: string
+        description: Unknown.
