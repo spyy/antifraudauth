@@ -54,10 +54,8 @@ function saasPost(request, response) {
 
 
 function post(request, response) {
-  
-  var postData = request.swagger.params.V1UserDetails.value;
-  console.log(postData);
-  
+  var userDetails = request.swagger.params.V1UserDetails.value;
+  var body = JSON.stringify(userDetails);
   var options = { 
     hostname: 'eesee0-test.m.in-app.io',
     port: 5281, 
@@ -65,7 +63,7 @@ function post(request, response) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Content-Length': postData.value.length
+      'Content-Length': body.length
     }
   };  
 
@@ -83,16 +81,13 @@ function post(request, response) {
 
     saasResponse.on('end', function() {
       console.log('saasResponse.on: end');
-      response.statusCode = saasResponse.statusCode;
       response.setHeader('Content-Type', 'application/json');
-      //res.writeHead(saasResponse.statusCode, saasResponse.headers);
       response.end(body);
     });
     
   });
   
-  saasRequest.write(postData.value);
-  saasRequest.end();
+  saasRequest.end(body);
   
   saasRequest.on('error', function(e) {
     console.error(e);
