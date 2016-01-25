@@ -54,7 +54,10 @@ function saasPost(request, response) {
 
 
 function post(request, response) {
+  
   var postData = request.swagger.params.V1UserDetails.value;
+  console.log(postData);
+  
   var options = { 
     hostname: 'eesee0-test.m.in-app.io',
     port: 5281, 
