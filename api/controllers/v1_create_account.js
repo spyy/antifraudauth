@@ -59,7 +59,7 @@ function post(req, res) {
 
 
 
-function saasPost(req, res) {
+function saasPost(req, response) {
   var postData = JSON.stringify({
     'user': 'user1', 
     'server': 'eesee.io', 
@@ -91,9 +91,10 @@ function saasPost(req, res) {
 
     saasResponse.on('end', function() {
       console.log('saasResponse.on: end');
-      res.statusCode = saasResponse.statusCode;
+      response.statusCode = saasResponse.statusCode;
+      response.setHeader('Content-Type', 'application/json');
       //res.writeHead(saasResponse.statusCode, saasResponse.headers);
-      res.end(body);
+      response.end(body);
     });
     
   });
