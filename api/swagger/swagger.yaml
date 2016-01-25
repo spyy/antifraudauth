@@ -36,7 +36,7 @@ paths:
             $ref: "#/definitions/V1CreateAccountRequestData"
       responses:
         "200":
-          description: Response echoed.
+          description: Request echoed.
           schema:
             $ref: "#/definitions/V1CreateAccountEchoResponseData"
   /v1/user/create_account:
@@ -77,150 +77,10 @@ paths:
           description: Operation failed.
           schema:
             $ref: "#/definitions/V1DeleteAccountResponseData"
-  /v1/authenticate:
-    # binds a127 app logic to a route
-    x-swagger-router-controller: v1_authenticate
-    get:
-      description: Returns challenge parameters to the caller. The caller 
-        must then complete the challenge and return the answer in order to
-        receive an authentication token to the service it wants to consume.
-      # used as the method name of the controller
-      operationId: get
-      parameters:
-        - name: domain
-          in: query
-          description: The FQDN (RFC1035) to which the client wants to 
-            authenticate to, eg. 'payapi.io'. HTTPS is always used and
-            SSL certificate for the domain must always be valid.
-          required: true
-          type: string
-        - name: ipAddress
-          in: query
-          description: Valid external IP address of client.
-          required: true
-          type: string
-        - name: userId
-          in: query
-          description: User ID of the client in the domain it is authenticating into.
-          required: true
-          type: string
-        - name: deviceId
-          in: query
-          description: Device ID of the client. Applicable to mobile devices.
-          required: false
-          type: string
-      responses:
-        "200":
-          description: Success
-          schema:
-            $ref: "#/definitions/V1Challenge"
-        "503":
-          description: Error
-          schema:
-            $ref: "#/definitions/V1ChallengeError"
-    post:
-      description: Post the result of the challege to receive an authentication
-        and authorization token to the service you requested. 
-      # used as the method name of the controller
-      operationId: post
-      parameters:
-        - name: V1ChallengeResult
-          in: body
-          description: The result of challenge calculation.
-          required: true
-          schema:
-            # a pointer to a definition
-            $ref: "#/definitions/V1ChallengeResult"
-      responses:
-        "200":
-          description: Success
-          schema:
-            # a pointer to a definition
-            $ref: "#/definitions/V1AuthenticationToken"
-        "401":
-          description: Unauthorized. This error is permanent using the same input parameters.
-          schema:
-            # a pointer to a definition
-            $ref: "#/definitions/V1AuthenticationError"
-        # responses may fall through to errors
-        "503":
-          description: Error
-          schema:
-            $ref: "#/definitions/V1AuthenticationError"
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
 definitions:
-  V1Challenge:
-    required:
-      - uuid
-      - algorithm
-      - value
-      - iterations
-    properties:
-      uuid:
-        type: string
-        description: The UUID of the challenge.
-      value:
-        type: string
-        description: The challenge.
-      algorithm:
-        type: string
-        description: The algorithm that should be used to complete this challenge.
-          Currently supported algorithms include 'HS512'.
-      iterations:
-        type: integer
-        description: How many times the challenge must be iterated.
-  V1ChallengeError:
-    required:
-      - uuid
-    properties:
-      uuid:
-        type: string
-        description: The uuid of this error, for technical troubleshooting.
-      reason:
-        type: string
-        description: The reason for challenge error, if known.
-  V1ChallengeResult:
-    required:
-      - uuid
-      - result
-    properties:
-      uuid: 
-        type: string
-        description: The UUID for identifying the challenge for this result.
-      result:
-        type: string
-        description: The result which the client calculated.
-  V1AuthenticationToken:
-    required:
-      - uuid
-      - expires
-      - domain
-    properties:
-      uuid:
-        type: string
-        description: The UUID for identifying the authentication.
-      expires:
-        type: string
-        description: When the token expires and can no longer be used for 
-          authenticating.
-      domain:
-        type: string
-        description: The domain which this token can be used to authenticate to.
-      fraudScore:
-        type: integer
-        description: Fraud score coverage.
-      coverage:
-        type: string
-        enum: ['MINIMAL','LOW','MEDIUM','HIGH','MAXIMUM','KYC']
-        description: The fraud score for the given client parameters.
-  V1AuthenticationError:
-    required:
-      - domain
-    properties:
-      domain:
-        type: string
   V1CreateAccountEchoResponseData:
     required:
       - user
@@ -257,7 +117,7 @@ definitions:
     properties:
       res: 
         type: integer
-        description: Unknown.
+        description: 0 if success.
   V1DeleteAccountRequestData:
     required:
       - user
@@ -275,4 +135,4 @@ definitions:
     properties:
       res: 
         type: integer
-        description: Unknown.
+        description: 0 if success.
