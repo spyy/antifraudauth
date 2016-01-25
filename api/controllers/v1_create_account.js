@@ -85,12 +85,15 @@ function saasPost(req, res) {
     var body = ''; 
 
     saasResponse.on('data', function(chunk) {
-        body += chunk;
+      console.log('saasResponse.on: data');
+      body += chunk;
     }); 
 
     saasResponse.on('end', function() {
-        res.writeHead(saasResponse.statusCode, saasResponse.headers);
-        res.end(body);
+      console.log('saasResponse.on: end');
+      res.statusCode = saasResponse.statusCode;
+      //res.writeHead(saasResponse.statusCode, saasResponse.headers);
+      res.end(body);
     });
     
   });
