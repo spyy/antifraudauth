@@ -59,7 +59,7 @@ function post(req, res) {
 
 
 
-function post2(req, res) {
+function saasPost(req, res) {
   var postData = JSON.stringify({
     'user': 'user1', 
     'server': 'eesee.io', 
@@ -98,7 +98,6 @@ function post2(req, res) {
   saasRequest.write(postData);
   saasRequest.end();
   
-  
   saasRequest.on('error', function(e) {
     console.error(e);
   });
@@ -106,6 +105,6 @@ function post2(req, res) {
 
 
 module.exports = {
-  post: post
+  post: saasPost
 };
 
